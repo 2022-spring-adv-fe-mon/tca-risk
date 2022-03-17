@@ -16,7 +16,9 @@ const Home: React.FC = () => {
             <IonTitle size="large">Home</IonTitle>
           </IonToolbar>
         </IonHeader>
-        <IonButton>
+        <IonButton
+          routerLink='/setup'
+        >
             Play
         </IonButton>
       </IonContent>
