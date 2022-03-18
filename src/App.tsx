@@ -24,20 +24,69 @@ import './theme/variables.css';
 import SetupGame from './pages/SetupGame';
 import PlayGame from './pages/PlayGame';
 
+import { useState } from 'react';
+
 setupIonicReact();
 
-const App: React.FC = () => (
+interface player {
+  name: string;
+  order: number;
+}
+
+export interface gameResult {
+  start: string;      // "2022-02-14T18:49:30"
+  end: string;        // "2022-02-14T18:59:30"
+  winner: string      // "Me"
+  players: player[]   
+}
+
+const game1: gameResult = {
+  start: "2022-02-14T18:55:00"
+  , end: "2022-02-14T19:00:00"
+  , winner: "Justen"
+  , players: [{ name: "Me", order: 1 }, { name: "Jack", order: 2 }, { name: "Taylor", order: 3 }]  
+};
+
+const game2: gameResult = {
+  start: "2022-02-14T19:05:00"
+  , end: "2022-02-14T19:35:00"
+  , winner: "Audri"
+  , players: [{ name: "Me", order: 1 }, { name: "Stephanie", order: 2 }]
+};
+
+const gameResults: gameResult[] = [
+  game1
+  , game2
+];
+
+
+const App: React.FC = () => {
+
+  const [results, setResults] = useState(gameResults);
+
+  const addGameResult = (singleGameResult: gameResult) => {
+    setResults([
+      ...results
+      , singleGameResult
+    ]);
+  };
+
+  return (
   <IonApp>
     <IonReactHashRouter>
       <IonRouterOutlet>
       <Route exact path="/play">
-          <PlayGame/>
+          <PlayGame
+            addGameResult={addGameResult}
+          />
         </Route>
         <Route exact path="/setup">
           <SetupGame/>
         </Route>
         <Route exact path="/home">
-          <Home />
+          <Home
+            gameResults={results}
+          />
         </Route>
         <Route exact path="/">
           <Redirect to="/home" />
@@ -45,6 +94,6 @@ const App: React.FC = () => (
       </IonRouterOutlet>
     </IonReactHashRouter>
   </IonApp>
-);
-
+  );
+}
 export default App;

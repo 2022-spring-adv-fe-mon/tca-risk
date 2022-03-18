@@ -1,8 +1,13 @@
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonButton } from '@ionic/react';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonButton, IonText } from '@ionic/react';
 import ExploreContainer from '../components/ExploreContainer';
 import './Home.css';
+import { gameResult } from '../App';
 
-const Home: React.FC = () => {
+
+interface HomeProps {
+  gameResults: gameResult[]
+}
+const Home: React.FC<HomeProps> = ({gameResults}) => {
   return (
     <IonPage>
       <IonHeader>
@@ -16,6 +21,9 @@ const Home: React.FC = () => {
             <IonTitle size="large">Home</IonTitle>
           </IonToolbar>
         </IonHeader>
+        <h3>
+          Total Games Played: {gameResults.length}
+        </h3>
         <IonButton
           routerLink='/setup'
         >
