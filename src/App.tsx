@@ -59,10 +59,13 @@ const gameResults: gameResult[] = [
   , game2
 ];
 
+const getUniquePlayers = (games: gameResult[]) => (
+  [...new Set(games.flatMap(x => x.players.map(y => y.name)))]
+);
 
 const App: React.FC = () => {
 
-  const [results, setResults] = useState(gameResults);
+  const [results, setResults] = useState<gameResult[]>(gameResults);
 
   const addGameResult = (singleGameResult: gameResult) => {
     setResults([
@@ -81,7 +84,9 @@ const App: React.FC = () => {
           />
         </Route>
         <Route exact path="/setup">
-          <SetupGame/>
+          <SetupGame
+          previousPlayers={getUniquePlayers(results)}
+          />
         </Route>
         <Route exact path="/home">
           <Home

@@ -1,6 +1,16 @@
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonButton } from '@ionic/react';
 
-const SetupGame: React.FC = () => {
+interface SetGameProps {
+  previousPlayers: string[];
+}
+
+const SetupGame: React.FC<SetGameProps> = ({previousPlayers}) => {
+
+  const playersWithCheckBoolean = previousPlayers.map(x => ({
+    name: x
+    , checked: false
+  }))
+
   return (
     <IonPage>
       <IonHeader>
@@ -14,6 +24,15 @@ const SetupGame: React.FC = () => {
             <IonTitle size="large">Setup Game</IonTitle>
           </IonToolbar>
         </IonHeader>
+
+        <h3>
+          Choose Players
+        </h3>
+        {
+          playersWithCheckBoolean.map(x => <p key={x.name}>{x.name}({x.checked.toString()})</p>)
+        }
+
+
         <IonButton
           routerLink='/play'
         >
