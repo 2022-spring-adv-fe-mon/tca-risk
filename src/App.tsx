@@ -40,18 +40,23 @@ export interface gameResult {
   players: player[]   
 }
 
+export interface currentGame {
+  start: string;
+  players: string[];
+}
+
 const game1: gameResult = {
   start: "2022-02-14T18:55:00"
   , end: "2022-02-14T19:00:00"
   , winner: "Justen"
-  , players: [{ name: "Me", order: 1 }, { name: "Jack", order: 2 }, { name: "Taylor", order: 3 }]  
+  , players: [{ name: "Me", order: 1 }, { name: "Justen", order: 2 }, { name: "Audri", order: 3 }]  
 };
 
 const game2: gameResult = {
   start: "2022-02-14T19:05:00"
   , end: "2022-02-14T19:35:00"
   , winner: "Audri"
-  , players: [{ name: "Me", order: 1 }, { name: "Stephanie", order: 2 }]
+  , players: [{ name: "Me", order: 1 }, { name: "Tammy", order: 2 }]
 };
 
 const gameResults: gameResult[] = [
@@ -65,7 +70,12 @@ const getUniquePlayers = (games: gameResult[]) => (
 
 const App: React.FC = () => {
 
+  // App state as useState() until it gets unmanagable.
   const [results, setResults] = useState<gameResult[]>(gameResults);
+  const[currentGame, setCurrentGame] = useState<currentGame>({
+    start: ""
+    , players: []
+  });
 
   const addGameResult = (singleGameResult: gameResult) => {
     setResults([
@@ -81,11 +91,13 @@ const App: React.FC = () => {
       <Route exact path="/play">
           <PlayGame
             addGameResult={addGameResult}
+            currentGame={currentGame}
           />
         </Route>
         <Route exact path="/setup">
           <SetupGame
           previousPlayers={getUniquePlayers(results)}
+          setCurrentGame={setCurrentGame}
           />
         </Route>
         <Route exact path="/home">
