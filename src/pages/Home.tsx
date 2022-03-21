@@ -24,6 +24,12 @@ const calculateShortestGame = (r: gameResult[]) => (
   )
 );
 const Home: React.FC<HomeProps> = ({gameResults}) => {
+
+  const suzziesWinningPercentage = 
+   !isNaN(calculateWinningPercentage(gameResults, "Suzzie"))
+   ? calculateWinningPercentage(gameResults, "Suzzie") 
+   : 0;
+
   return (
     <IonPage>
       <IonHeader>
@@ -41,7 +47,7 @@ const Home: React.FC<HomeProps> = ({gameResults}) => {
           Total Games Played: {gameResults.length}
         </h3>
         <h3>
-          Suzzie's Winning %: {calculateWinningPercentage(gameResults, "Suzzie")}
+          Suzzie's Winning %: {suzziesWinningPercentage}
         </h3>
         <h3>
           My Winning %: {calculateWinningPercentage(gameResults, "Me")}
