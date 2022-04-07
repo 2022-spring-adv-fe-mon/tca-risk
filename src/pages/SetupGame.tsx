@@ -1,7 +1,7 @@
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonButton, IonItem, IonLabel, IonCheckbox, IonInput } from '@ionic/react';
 import { useHistory } from 'react-router';
 import { currentGame } from '../App';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 interface SetGameProps {
   previousPlayers: string[];
@@ -15,6 +15,15 @@ const SetupGame: React.FC<SetGameProps> = ({
 
   const nav = useHistory();
 
+  useEffect(
+    () => {
+      setAvailablePlayers(previousPlayers.map(x => ({
+        name: x
+        , checked: false
+      })))
+    }
+    , [previousPlayers]
+  );
   const playersWithCheckBoolean = previousPlayers.map(x => ({
     name: x
     , checked: false
