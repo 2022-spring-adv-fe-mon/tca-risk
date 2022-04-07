@@ -3,34 +3,43 @@ import ExploreContainer from '../components/ExploreContainer';
 import './Home.css';
 import { gameResult } from '../App';
 
-
 interface HomeProps {
-  gameResults: gameResult[]
+  gameResults: gameResult[];
+  previousPlayers: string[];
 }
-const calculateWinningPercentage = (results: gameResult[], who: string) => (
-  results.filter(x => x.winner === who).length 
-  / results.filter(
-      x => 
-          x.winner !== "~~None~~" 
-          && x.players.some(
-              y => y.name === who
-          )
-      ).length
-);
 
 const calculateShortestGame = (r: gameResult[]) => (
   Math.min(
       ...r.map(x => Date.parse(x.end) - Date.parse(x.start))
   )
 );
-const Home: React.FC<HomeProps> = ({gameResults}) => {
 
-  const suzziesWinningPercentage = 
-   !isNaN(calculateWinningPercentage(gameResults, "Suzzie"))
-   ? calculateWinningPercentage(gameResults, "Suzzie") 
-   : 0;
+const calculateLeaderBoard = (p: string[], r: gameResult[]) => {
 
-  return (
+  const lb = p.map(x => {
+
+    const gamesThisPlayerHasPlayed = r.filter(y => y.players.some(z => z.name === x));
+    const gamesThisPlayerHasWon = gamesThisPlayerHasPlayed.filter(y => y.winner === x);
+
+    return {
+      name: x
+      , wins: gamesThisPlayerHasWon.length
+      , losses: gamesThisPlayerHasPlayed.length - gamesThisPlayerHasWon.length
+      , winningPercentage: (gamesThisPlayerHasWon.length / gamesThisPlayerHasWon.length).toFixed(3)
+    };
+
+  });
+
+  console.log("calculateLeaderBoard", lb);
+};
+
+const Home: React.FC<HomeProps> = ({
+  gameResults
+  , previousPlayers
+}) => {
+
+  const lb = calculateLeaderBoard(previousPlayers, gameResults);
+return (
     <IonPage>
       <IonHeader>
         <IonToolbar>
@@ -45,12 +54,6 @@ const Home: React.FC<HomeProps> = ({gameResults}) => {
         </IonHeader>
         <h3>
           Total Games Played: {gameResults.length}
-        </h3>
-        <h3>
-          Suzzie's Winning %: {suzziesWinningPercentage}
-        </h3>
-        <h3>
-          My Winning %: {calculateWinningPercentage(gameResults, "Me")}
         </h3>
         <h3>
           Shortest Game (min): {calculateShortestGame(gameResults)/ 1000 / 60}
