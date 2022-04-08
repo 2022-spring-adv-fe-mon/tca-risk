@@ -1,4 +1,4 @@
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonButton, IonText } from '@ionic/react';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonButton, IonText, IonGrid, IonRow, IonCol } from '@ionic/react';
 import ExploreContainer from '../components/ExploreContainer';
 import './Home.css';
 import { gameResult } from '../App';
@@ -31,6 +31,9 @@ const calculateLeaderBoard = (p: string[], r: gameResult[]) => {
   });
 
   console.log("calculateLeaderBoard", lb);
+
+  return lb;
+
 };
 
 const Home: React.FC<HomeProps> = ({
@@ -58,10 +61,30 @@ return (
         <h3>
           Shortest Game (min): {calculateShortestGame(gameResults)/ 1000 / 60}
         </h3>
+        <IonGrid>
+          {calculateLeaderBoard(previousPlayers, gameResults)
+          .sort((a, b) => a.winningPercentage.localeCompare(b.winningPercentage))
+          .map(x => (
+              <IonRow>
+                <IonCol>
+                  {x.wins}
+                </IonCol>
+                <IonCol>
+                  {x.losses}
+                </IonCol>
+                <IonCol>
+                  {x.winningPercentage}
+                </IonCol>
+                <IonCol>
+                  {x.name}
+                </IonCol>
+              </IonRow>
+            ))}
+          </IonGrid>
         <IonButton
           routerLink='/setup'
         >
-            Play
+            Play Risk
         </IonButton>
       </IonContent>
     </IonPage>
