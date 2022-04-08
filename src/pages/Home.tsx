@@ -25,7 +25,7 @@ const calculateLeaderBoard = (p: string[], r: gameResult[]) => {
       name: x
       , wins: gamesThisPlayerHasWon.length
       , losses: gamesThisPlayerHasPlayed.length - gamesThisPlayerHasWon.length
-      , winningPercentage: (gamesThisPlayerHasWon.length / gamesThisPlayerHasWon.length).toFixed(3)
+      , winningPercentage: (gamesThisPlayerHasWon.length / gamesThisPlayerHasPlayed.length).toFixed(3)
     };
 
   });
@@ -63,7 +63,7 @@ return (
         </h3>
         <IonGrid>
           {calculateLeaderBoard(previousPlayers, gameResults)
-          .sort((a, b) => a.winningPercentage.localeCompare(b.winningPercentage))
+          .sort((a, b) => b.winningPercentage.localeCompare(a.winningPercentage))
           .map(x => (
               <IonRow>
                 <IonCol>
