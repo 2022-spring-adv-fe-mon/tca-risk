@@ -36,7 +36,7 @@ const PlayGame: React.FC<PlayGameProps> = ({
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>Play Game</IonTitle>
+          <IonTitle>Play Risk</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>

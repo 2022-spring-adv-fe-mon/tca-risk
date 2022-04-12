@@ -74,13 +74,13 @@ const SetupGame: React.FC<SetGameProps> = ({
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>Setup Game</IonTitle>
+          <IonTitle>Setup Risk</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
         <IonHeader collapse="condense">
           <IonToolbar>
-            <IonTitle size="large">Setup Game</IonTitle>
+            <IonTitle size="large">Setup Risk</IonTitle>
           </IonToolbar>
         </IonHeader>
 

@@ -46,7 +46,7 @@ return (
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>Home</IonTitle>
+          <IonTitle>tca Risk (companion app)</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
