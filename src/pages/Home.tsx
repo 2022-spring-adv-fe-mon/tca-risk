@@ -59,7 +59,7 @@ return (
           Total Games Played: {gameResults.length}
         </h3>
         <h3>
-          Shortest Game (min): {calculateShortestGame(gameResults)/ 1000 / 60}
+          Shortest Game (min): {(calculateShortestGame(gameResults) / 1000 / 60).toFixed(2)};
         </h3>
         <IonGrid>
           {calculateLeaderBoard(previousPlayers, gameResults)

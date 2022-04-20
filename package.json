@@ -23,6 +23,7 @@
     "ionicons": "^5.4.0",
     "local": "^0.3.3",
     "localforage": "^1.10.0",
+    "pretty-ms": "^7.0.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-router": "^5.2.0",
