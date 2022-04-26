@@ -27,6 +27,8 @@ import PlayGame from './pages/PlayGame';
 import { useState, useEffect} from 'react';
 
 import localforage from 'localforage';
+import { saveGameToCloud, loadGamesFromCloud } from './TcaCloudApi';
+
 
 setupIonicReact();
 
@@ -105,9 +107,16 @@ useEffect(
       , singleGameResult
     ];
 
-    const savedResults = await localforage.setItem('gameResults', updatedResults);
-    //loadGameResults();
-    setResults(savedResults);
+    setResults(updatedResults);
+
+    
+    //const savedResults = await localforage.setItem('gameResults', updatedResults);
+    await saveGameToCloud(
+      "JWaldburger@madisoncollege.edu"
+      , "tca-risk"
+      , singleGameResult.end
+      , singleGameResult
+    );
   };
 
   return (
